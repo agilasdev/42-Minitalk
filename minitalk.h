@@ -15,7 +15,7 @@
 # include <signal.h>
 
 # include <unistd.h>
-
+# include <stdio.h>
 # include <stdlib.h>
 
 typedef struct t_list

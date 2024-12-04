@@ -10,30 +10,27 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minitalk.a
-SRC = server_fn.c other_fn.c list_fn.c client_fn.c
+SRC = tools.c
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 C_FLAGS = $(CC) $(FLAGS)
 
-all : $(NAME)
+all : client server
 
-$(NAME) : $(SRC:.c=.o)
-	ar -rc $(NAME) $(SRC:.c=.o)
-	$(C_FLAGS) $(NAME) main/server.c -o server
-	$(C_FLAGS) $(NAME) main/client.c -o client
+client : tools.c client.c
+	$(C_FLAGS) tools.c client.c -o client
 
-$(SRC:.c=.o) : $(SRC)
-	$(C_FLAGS) -c $(SRC)
+server: tools.c server.c
+	$(C_FLAGS) tools.c server.c -o server
+
 
 clean :
 	rm -rf *.o
 
 fclean : clean
-	rm -f $(NAME)
 	rm -f server
 	rm -f client
 
-re : fclean $(NAME)
+re : fclean all
 
 .PHONY : all clean fclean re
